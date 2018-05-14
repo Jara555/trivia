@@ -1,5 +1,6 @@
 package com.jara.trivia;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -84,7 +85,7 @@ public class LogInActivity extends AppCompatActivity {
                 });
     }
 
-    public void logIn(View view) {
+    public void signIn(View view) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -96,6 +97,12 @@ public class LogInActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
+
+                            // create intent and pass through to game activity
+                            Intent intent = new Intent(LogInActivity.this, GameActivity.class);
+                            startActivity(intent);
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("sign in", "signInWithEmail:failure", task.getException());
