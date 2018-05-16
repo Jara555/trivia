@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/trivia" />
 
         <TextView
@@ -26,7 +26,7 @@
             android:fontFamily="@font/alfa_slab_one"
             android:text="Trivia"
             android:textColor="#000000"
-            android:textSize="36sp" />
+            android:textSize="22sp" />
 
     </LinearLayout>
 

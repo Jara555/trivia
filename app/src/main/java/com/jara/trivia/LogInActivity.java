@@ -30,88 +30,85 @@ public class LogInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // hardcoded user profile
-        email = "hoi@hoi.com";
-        password = "abcdef";
-
         // initialize firebase authentication instance
         mAuth = FirebaseAuth.getInstance();
-
-        // create user
-        createAccount();
     }
 
-    /* Checks if user is currently signed in */
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
-    }
-
-    public void getEditText() {
+    /* Returns true if text in login fields */
+    public boolean getEditText() {
+        // get edit text
         EditText etEmail = (EditText) findViewById(R.id.email);
         EditText etPassword = (EditText) findViewById(R.id.password);
 
-        // hardcoded user profile
+        // store email and password of user
         email = etEmail.getText().toString();
         password = etPassword.getText().toString();
+
+        // check if there was text entered
+        if (email.isEmpty()) {
+            Toast toast = Toast.makeText(this, "Please enter e-mail", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+        }
+        else if (password.isEmpty()) {
+            Toast toast = Toast.makeText(this, "Please enter password", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+        }
+        return true;
     }
 
-    /* Creates a new account with email and password */
-    public void createAccount() {
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("create user", "createUserWithEmail:success");
-                            Toast.makeText(LogInActivity.this, "Account created: " + email,
-                                    Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("create user", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(LogInActivity.this, "Failed to create account.",
-                                    Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
+    /* Creates a new account with email and password in firebase authentication database */
+    public void createAccount(View view) {
+        // check if text is entered in login fields
+        if (getEditText()) {
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("create user", "createUserWithEmail:success");
+                                Toast.makeText(LogInActivity.this, "Account created: " + email,
+                                        Toast.LENGTH_SHORT).show();
+                                FirebaseUser user = mAuth.getCurrentUser();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("create user", "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(LogInActivity.this, "Failed to create account.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
-
-                        // ...
-                    }
-                });
+                    });
+        }
     }
 
+    /* Signs user in by firebase authentication */
     public void signIn(View view) {
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("sign in", "signInWithEmail:success");
-                            Toast.makeText(LogInActivity.this, "Authentication succeed: " + email,
-                                    Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
+        // check if text is entered in login fields
+        if (getEditText()) {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("sign in", "signInWithEmail:success");
+                                Toast.makeText(LogInActivity.this, "Authentication succeed: " + email,
+                                        Toast.LENGTH_SHORT).show();
+                                FirebaseUser user = mAuth.getCurrentUser();
 
-                            // create intent and pass through to game activity
-                            Intent intent = new Intent(LogInActivity.this, GameActivity.class);
-                            startActivity(intent);
-
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("sign in", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LogInActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-                        // ...
-                    }
-                });
+                                // create intent and pass through to game activity
+                                Intent intent = new Intent(LogInActivity.this, StartActivity.class);
+                                startActivity(intent);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("sign in", "signInWithEmail:failure", task.getException());
+                                Toast.makeText(LogInActivity.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            }
+                    });
+        }
     }
 }

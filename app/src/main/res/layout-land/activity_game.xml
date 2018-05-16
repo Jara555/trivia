@@ -9,24 +9,15 @@
     android:background="@drawable/colorwheel"
     tools:context=".GameActivity">
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
-
     <TextView
         android:id="@+id/category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="1"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
 
     <TextView
         android:id="@+id/question"
@@ -34,20 +25,19 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:layout_gravity="center"
-        android:layout_weight="1"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textColor="#000000"/>
-
+    
     <Space
         android:layout_width="match_parent"
-        android:layout_height="20dp" />
+        android:layout_height="5dp" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="10sp"
         android:layout_gravity="bottom"
-        android:layout_weight="1"
         android:background="@android:drawable/btn_default"
         android:onClick="checkAnswer" />
 
@@ -55,8 +45,8 @@
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="10sp"
         android:layout_gravity="bottom"
-        android:layout_weight="1"
         android:background="@android:drawable/btn_default"
         android:onClick="checkAnswer" />
 
@@ -64,8 +54,8 @@
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="10sp"
         android:layout_gravity="bottom"
-        android:layout_weight="1"
         android:background="@android:drawable/btn_default"
         android:onClick="checkAnswer" />
 
@@ -73,8 +63,8 @@
         android:id="@+id/button4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="10sp"
         android:layout_gravity="bottom"
-        android:layout_weight="1"
         android:background="@android:drawable/btn_default"
         android:onClick="checkAnswer" />
 
@@ -82,10 +72,9 @@
         android:id="@+id/answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_gravity="end|bottom"
         android:visibility="invisible"
-        android:textSize="18sp"
+        android:textSize="1sp"
         android:textColor="#d6d6d6"/>
 
 </LinearLayout>
